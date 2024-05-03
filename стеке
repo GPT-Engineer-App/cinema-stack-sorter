@@ -1,0 +1,47 @@
+#include <vector>
+#include <iostream>
+
+// Функция для бинарного поиска в массиве
+int binarySearch(std::vector<elem*>& array, int l, int r, const std::string& value, int sort) {
+    while (l <= r) {
+        int m = l + (r - l) / 2;
+
+        std::string midVal;
+        switch (sort) {
+            case 1: midVal = array[m]->minsk->name; break;
+            case 2: midVal = array[m]->minsk->city; break;
+            case 3: midVal = std::to_string(array[m]->minsk->films); break;
+            case 4: midVal = array[m]->minsk->address; break;
+            case 5: midVal = array[m]->minsk->admin; break;
+            default: return -1;
+        }
+
+        if (midVal == value)
+            return m;
+
+        if (midVal < value)
+            l = m + 1;
+        else
+            r = m - 1;
+    }
+
+    return -1;
+}
+
+// Функция для бинарного поиска в стеке
+elem* binarySearchInStack(elem* top, const std::string& value, int sort) {
+    std::vector<elem*> array;
+    elem* current = top;
+
+    // Копируем элементы стека в массив
+    while (current != nullptr) {
+        array.push_back(current);
+        current = current->next;
+    }
+
+    // Выполняем бинарный поиск в массиве
+    int index = binarySearch(array, 0, array.size() - 1, value, sort);
+
+    // Возвращаем найденный элемент или nullptr, если элемент не найден
+    return (index != -1) ? array[index] : nullptr;
+}
